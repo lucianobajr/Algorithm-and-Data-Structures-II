@@ -27,3 +27,6 @@ void Arquivo(arquivo *arq);
 void menu(arquivo *arq, TipoTabela *T);
 void Imprime(TipoTabela *T);
 void print_menu();
+void QuickSort(TipoTabela *T, int n);
+void particao(int left, int right, int *i, int *j, TipoTabela *T);
+void ordena(int left, int right, TipoTabela *T);

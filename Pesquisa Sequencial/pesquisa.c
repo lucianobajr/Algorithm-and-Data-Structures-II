@@ -15,6 +15,53 @@ void Insere(arquivo *arq, TipoTabela *T)
   }
 }
 
+void QuickSort(TipoTabela *T, int n)
+{
+  ordena(0, n - 1, T);
+}
+
+void ordena(int left, int right, TipoTabela *T)
+{
+  int i, j;
+  particao(left, right, &i, &j, T);
+
+  if (left < j)
+    ordena(left, j, T);
+
+  if (i < right)
+    ordena(i, right, T);
+}
+
+void particao(int left, int right, int *i, int *j, TipoTabela *T)
+{
+  *i = left;
+  *j = right;
+  TipoRegistro pivot = T->Item[(*i + *j) / 2];
+  TipoRegistro aux;
+  do
+  {
+
+    while (pivot.Chave > T->Item[*i].Chave)
+    {
+      (*i)++;
+    }
+    while (pivot.Chave < T->Item[*j].Chave)
+    {
+      (*j)--;
+    }
+
+    if (*i <= *j)
+    {
+
+      aux = T->Item[*i];
+      T->Item[*i] = T->Item[*j];
+      T->Item[*j] = aux;
+      (*i)++;
+      (*j)--;
+    }
+  } while (*i <= *j);
+}
+
 int Binaria(long x, TipoTabela *T)
 {
   int i, Esq, Dir;
@@ -96,6 +143,7 @@ void menu(arquivo *arq, TipoTabela *T)
 
       T = Inicializa();
       Insere(arq, T);
+      QuickSort(T, T->n);
     }
     if (resposta == 3)
     {
