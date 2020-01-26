@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#define MAXN 10
+#define MAXN 11
 
 typedef struct TipoRegistro
 {
