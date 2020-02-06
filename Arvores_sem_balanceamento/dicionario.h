@@ -30,3 +30,5 @@ void retira(TipoRegistro x, TipoApontador *p);
 void central(TipoApontador p);
 void pesquisa(TipoRegistro *x, TipoApontador *p);
 void Arquivo(arquivo *arq);
+void print_menu();
+void menu(arquivo *arq, TipoApontador Dicionario);

@@ -86,7 +86,7 @@ void pesquisa(TipoRegistro *x, TipoApontador *p)
 {
   if (*p == NULL)
   {
-    printf("Erro:Registro não está presente na árvore\n");
+    printf("Erro: Registro nao esta presente na arvore\n");
     return;
   }
   if (x->chave < (*p)->reg.chave)
@@ -105,7 +105,7 @@ void Arquivo(arquivo *arq)
   FILE *teste;
   int tamanho_vet, i = 0, cont = 0;
   char nome[30];
-  int copia;
+  TipoRegistro copia;
   printf("Digite o nome do arquivo para o caso de teste (Na mesma pasta e com .txt) = ");
   fgets(nome, 30, stdin);
   nome[strlen(nome) - 1] = '\0';
@@ -117,7 +117,7 @@ void Arquivo(arquivo *arq)
   else
   {
     fscanf(teste, "%d", &tamanho_vet);
-    int *aux = (int *)malloc(tamanho_vet * sizeof(int));
+    TipoRegistro *aux = (TipoRegistro *)malloc(tamanho_vet * sizeof(TipoRegistro));
     if (aux == NULL)
     {
       printf("ERRO");
@@ -125,8 +125,8 @@ void Arquivo(arquivo *arq)
 
     while (!feof(teste))
     {
-      fscanf(teste, "%ld", &copia);
-      aux[i] = copia;
+      fscanf(teste, "%d", &copia.chave);
+      aux[i].chave = copia.chave;
       i++;
     }
     arq->itens_arquivo = aux;
@@ -134,4 +134,111 @@ void Arquivo(arquivo *arq)
     fclose(teste);
     i--;
   }
+}
+
+void menu(arquivo *arq, TipoApontador Dicionario)
+{
+  TipoRegistro search;
+  int teste;
+  int resposta, i = 0;
+  Arquivo(arq);
+  inicializa(&Dicionario);
+  while (i != arq->quantidade_arquivo)
+  {
+    insere(arq->itens_arquivo[i], &Dicionario);
+    i++;
+  }
+  do
+  {
+    print_menu();
+    scanf("%d", &resposta);
+    if (resposta == 1)
+    {
+      continue;
+      //operações de dicionario
+    }
+    if (resposta == 3)
+    {
+      central(Dicionario);
+      //central do TAD Dicionario
+    }
+    if (resposta == 2)
+    {
+      printf("Digite o  valor de registro que deseja procurar:");
+      scanf("\n%d", &search.chave);
+
+      pesquisa(&search, &Dicionario);
+      //busca do TAD Dicionario
+    }
+  } while (resposta != 0);
+}
+
+void print_menu()
+{
+  int i;
+  fputs(" ", stdout);
+  for (i = 0; i < 163; i++)
+  {
+    fputs("_", stdout);
+  }
+  printf("\n|");
+  for (i = 0; i < 163; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n|");
+  for (i = 0; i < 80; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("MENU");
+  for (i = 0; i < 79; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|");
+  printf("\n");
+  printf("|");
+  for (i = 0; i < 163; i++)
+  {
+    fputs("_", stdout);
+  }
+  printf("|\n|");
+  for (i = 0; i < 163; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n|           ");
+  for (i = 0; i < 21; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("Digite (1) Inserir os itens no TipoDicionario (2) para fazer a busca de um item no Árvore");
+  for (i = 0; i < 42; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|");
+  printf("\n|           ");
+  for (i = 0; i < 7; i++)
+  {
+    fputs(" ", stdout);
+  }
+
+  printf(" (3) para imprimir os itens do TipoDicionario e Qualquer número diferente dos anteriores para fechar o programa.");
+  for (i = 0; i < 33; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+  for (i = 0; i < 163; i++)
+  {
+    fputs("_", stdout);
+  }
+  printf("|");
+  printf("\n");
+  printf("------------->");
+  fflush(stdin);
 }
