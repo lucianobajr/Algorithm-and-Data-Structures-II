@@ -2,12 +2,12 @@
 
 void inicializa(TipoApontador *Dicionario)
 {
-  *Dicionario = NULL;
+  *Dicionario = NULL;//raiz da árvore
 }
 
 void insere(TipoRegistro x, TipoApontador *p)
 {
-  if (*p == NULL)
+  if (*p == NULL)//caso esteja vazio ensira na raiz
   {
     *p = (TipoApontador)malloc(sizeof(TipoNo));
     (*p)->reg = x;
@@ -73,14 +73,35 @@ void retira(TipoRegistro x, TipoApontador *p)
   free(aux);
 }
 
-void central(TipoApontador p)
+//percurso--transvercialização--ordem/infixa   (pré e pós)
+void ordem(TipoApontador p)
 {
-  if (p == NULL)
-    return;
-  central(p->esq);
-  printf("%d\n", p->reg.chave);
-  central(p->dir);
+  if (p != NULL){
+    ordem(p->esq);
+    printf("%d\n", p->reg.chave);
+    ordem(p->dir);
+  }
 }
+
+
+void preordem(TipoApontador p)
+{
+  if (p != NULL){
+    printf("%d\n", p->reg.chave);
+    preordem(p->esq);
+    preordem(p->dir);
+  }
+}
+
+void posordem(TipoApontador p)
+{
+  if (p != NULL){
+    posordem(p->esq);
+    posordem(p->dir);
+    printf("%d\n", p->reg.chave);
+  }
+}
+
 
 void pesquisa(TipoRegistro *x, TipoApontador *p)
 {
@@ -159,7 +180,7 @@ void menu(arquivo *arq, TipoApontador Dicionario)
     }
     if (resposta == 3)
     {
-      central(Dicionario);
+      preordem(Dicionario);
       //central do TAD Dicionario
     }
     if (resposta == 2)
