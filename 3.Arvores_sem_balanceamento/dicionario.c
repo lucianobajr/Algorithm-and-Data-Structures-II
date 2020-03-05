@@ -1,5 +1,43 @@
 #include "dicionario.h"
 
+/*------------------------------FILA-----------------------------------*/
+
+void FFVazia(TipoFila *Fila)
+{ Fila->Frente = (TApontadorFila) malloc(sizeof(TipoCelula));
+  Fila->Tras = Fila->Frente;
+  Fila->Frente->Prox = NULL;
+} 
+
+int Vazia(TipoFila Fila)
+{ return (Fila.Frente == Fila.Tras); } 
+
+void Enfileira(TipoNo x, TipoFila *Fila)
+{ Fila->Tras->Prox = (TApontadorFila) malloc(sizeof(TipoCelula));
+  Fila->Tras = Fila->Tras->Prox;
+  Fila->Tras->no = x;
+  Fila->Tras->Prox = NULL;
+} 
+
+void Desenfileira(TipoFila *Fila, TipoNo *Item)
+{ TApontadorFila q;
+  if (Vazia(*Fila)) { printf("Erro fila esta vazia\n"); return; }
+  q = Fila->Frente;
+  Fila->Frente = Fila->Frente->Prox;
+  *Item = Fila->Frente->no;
+  free(q);
+} 
+
+void Imprime(TipoFila Fila)
+{ TApontadorFila Aux;
+  Aux = Fila.Frente->Prox;
+  while (Aux != NULL) 
+    { ordem(&Aux->no);
+      Aux = Aux->Prox;
+    }
+}
+
+/*----------------------------END--FILA--------------------------------*/
+
 void inicializa(TipoApontador *Dicionario)
 {
   *Dicionario = NULL;//raiz da árvore
@@ -102,6 +140,55 @@ void posordem(TipoApontador p)
   }
 }
 
+int altura(TipoApontador p){
+    if(p == NULL){
+      return -1;
+    }
+    else{
+      int he = altura(p->esq);
+      int hd = altura(p->dir);
+      if(he < hd)
+        return hd+1;
+      else return he+1;  
+    }
+}
+
+/*Algoritmo Busca por largura
+  -função que recebe raiz e a fila como parâmetro --->certo
+  -Declara nó auxiliar  --> certo
+  -se nó != NULL então -->
+    -Enfileira nó-->
+    -enquanto fila !=  vazia
+      -desinfileira nó e armazena no nó auxiliar 
+      -imprime a chave do nó auxiliar
+      -se nó auxiliar tem filho a esquerda != NULL então
+        -enfileira filho a esquerda
+      -se nó auxiliar tem filho direita ! = NULL
+        -enfileira filho a direita
+    -fim enquanto
+  -fim se 
+*/
+
+
+
+void largura(TipoApontador p,TipoFila fila){
+  TipoNo aux;
+  FFVazia(&fila);
+  if(p!=NULL){
+    Enfileira(*p,&fila);
+    while(!Vazia(fila)){
+      Desenfileira(&fila,p);
+      aux = *p;
+      printf("%d\n",aux.reg.chave);
+      if(aux.esq!=NULL){
+        Enfileira(*aux.esq,&fila);
+      }
+      if(aux.dir!=NULL){
+        Enfileira(*aux.dir,&fila);
+      }
+    }
+  }
+}
 
 void pesquisa(TipoRegistro *x, TipoApontador *p)
 {
@@ -180,7 +267,8 @@ void menu(arquivo *arq, TipoApontador Dicionario)
     }
     if (resposta == 3)
     {
-      preordem(Dicionario);
+      TipoFila fila;
+      largura(Dicionario,fila);
       //central do TAD Dicionario
     }
     if (resposta == 2)
