@@ -1,0 +1,7 @@
+Ana - 1 - 5
+Bruno - 2 - 3
+Diana - 3 - 2
+Giovane - 4 - 4
+Heitor - 5 - 7
+Italo - 6 - 6
+Marcilene - 7 - 8 
