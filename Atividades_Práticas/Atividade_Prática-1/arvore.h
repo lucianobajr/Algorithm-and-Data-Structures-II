@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define MEDIA_PROVA 12
 
 typedef struct TipoRegistro
 {
@@ -43,3 +44,4 @@ void menu(TipoApontador Dicionario);
 int countStudent(TipoApontador p,int *count);
 int maiorNota(TipoApontador p); 
 int menorNota(TipoApontador p);
+void countMediaProva(int *media,TipoApontador p);

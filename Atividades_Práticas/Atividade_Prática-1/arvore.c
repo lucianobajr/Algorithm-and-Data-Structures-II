@@ -1,5 +1,6 @@
 #include "arvore.h"
 
+/*---------------------OPERAÇÕES BÁSICAS---------------------*/
 void inicializa(TipoApontador *Dicionario)
 {
   *Dicionario = NULL;//raiz da árvore
@@ -71,55 +72,6 @@ void retira(TipoRegistro x, TipoApontador *p)
   free(aux);
 }
 
-int countStudent(TipoApontador p,int *count){
-  if (p != NULL){
-    countStudent(p->esq,count);
-    (*count)++;
-    countStudent(p->dir,count);
-  }
-}
-
-int maiorNota(TipoApontador p) 
-{ 
-    if (p == NULL) 
-      return 0; 
-
-    int maior = p->reg.nota; 
-    int eres = maiorNota(p->esq); 
-    int dres = maiorNota(p->dir); 
-    if (eres > maior) 
-      maior = eres; 
-    if (dres > maior) 
-      maior = dres; 
-    return maior; 
-} 
-
-int menorNota(TipoApontador p ) 
-{ 
-    if (p == NULL) 
-      return 20; 
-  
-    int menor = p->reg.nota; 
-    int lres = menorNota(p->esq); 
-    int rres = menorNota(p->dir); 
-    if (lres < menor) 
-      menor = lres; 
-    if (rres < menor) 
-      menor = rres; 
-    return menor; 
-} 
-
-//percurso--transvercialização--ordem/infixa   (pré e pós)
-void ordem(TipoApontador p)//ordem decrescente
-{
-  if (p != NULL){
-    ordem(p->dir);
-    printf("%s - %d - %d\n",p->reg.nome, p->reg.matricula,p->reg.nota);
-    ordem(p->esq);
-  }
-}
-
-
 void preordem(TipoApontador p)
 {
   if (p != NULL){
@@ -168,6 +120,69 @@ void pesquisa(TipoRegistro *x, TipoApontador *p)
   else
     *x = (*p)->reg;
 }
+/*---------------------FIM OPERAÇÕES---------------------*/
+
+/*---------------------FUNÇÕES PEDIDAS---------------------*/
+void ordem(TipoApontador p)//ordem decrescente
+{
+  if (p != NULL){
+    ordem(p->dir);
+    printf("%s - %d - %d\n",p->reg.nome, p->reg.matricula,p->reg.nota);
+    ordem(p->esq);
+  }
+}
+
+int countStudent(TipoApontador p,int *count){
+  if (p != NULL){
+    countStudent(p->esq,count);
+    (*count)++;
+    countStudent(p->dir,count);
+  }
+}
+
+int maiorNota(TipoApontador p) 
+{ 
+    if (p == NULL) 
+      return 0; 
+
+    int maior = p->reg.nota; 
+    int eres = maiorNota(p->esq); 
+    int dres = maiorNota(p->dir); 
+    if (eres > maior) 
+      maior = eres; 
+    if (dres > maior) 
+      maior = dres; 
+    return maior; 
+} 
+
+int menorNota(TipoApontador p ) 
+{ 
+    if (p == NULL) 
+      return 20; 
+  
+    int menor = p->reg.nota; 
+    int lres = menorNota(p->esq); 
+    int rres = menorNota(p->dir); 
+    if (lres < menor) 
+      menor = lres; 
+    if (rres < menor) 
+      menor = rres; 
+    return menor; 
+} 
+
+void countMediaProva(int *media,TipoApontador p){
+   if (p != NULL){
+    countMediaProva(media,p->esq);
+    if(p->reg.nota == MEDIA_PROVA){
+      (*media)++;
+    }
+    countMediaProva(media,p->dir);
+  }
+}
+
+/*-------------------FIM FUNÇÕES PEDIDAS---------------------*/
+
+
 
 void Arquivo(TipoApontador *p)
 {
@@ -197,33 +212,31 @@ void menu(TipoApontador Dicionario)
 {
   TipoRegistro search;
   int teste;
-  int resposta, i = 0;
+  int resposta;
   inicializa(&Dicionario);
   Arquivo(&Dicionario);
   do
   {
     print_menu();
     scanf("%d", &resposta);
-    if (resposta == 1)
-    {
-      printf("%d",menorNota(Dicionario));
-      //operações de dicionario
+    if (resposta == 1){
+      ordem(Dicionario);
     }
-    if (resposta == 3)
-    {
-        int count =0;
-        ordem(Dicionario);
-        countStudent(Dicionario,&count);
-        printf("%d alunos matriculados\n",count);
-      //central do TAD Dicionario
+    if (resposta == 2){
+      int count = 0;
+      countStudent(Dicionario,&count);
+      printf("\n%d alunos matriculados\n\n\n",count);
     }
-    if (resposta == 2)
-    {
-      printf("Digite o  valor de registro que deseja procurar:");
-      scanf("\n%d", &search.nota);
-
-      pesquisa(&search, &Dicionario);
-      //busca do TAD Dicionario
+    if (resposta == 3){
+      printf("\n A menor nota obtida foi: %d\n",menorNota(Dicionario));
+    }
+    if (resposta == 4){
+      printf("\n A maior nota obtida foi: %d\n",maiorNota(Dicionario));
+    }
+    if (resposta == 5){
+      int media = 0;
+      countMediaProva(&media,Dicionario);
+      printf("\n O número de alunos que obtiveram média na prova foi: %d\n",media);
     }
   } while (resposta != 0);
 }
@@ -264,24 +277,78 @@ void print_menu()
     fputs(" ", stdout);
   }
   printf("|\n|           ");
-  for (i = 0; i < 21; i++)
+  for (i = 0; i < 26; i++)
   {
     fputs(" ", stdout);
   }
-  printf("Digite (1) Inserir os itens no TipoDicionario (2) para fazer a busca de um item no Árvore");
-  for (i = 0; i < 42; i++)
+  printf("Digite (1) Exibir os alunos matriculados (2) para exibir o número de alunos da disciplina");
+  for (i = 0; i < 37; i++)
   {
     fputs(" ", stdout);
   }
   printf("|");
   printf("\n|           ");
-  for (i = 0; i < 7; i++)
+  for (i = 0; i < 32; i++)
   {
     fputs(" ", stdout);
   }
 
-  printf(" (3) para imprimir os itens do TipoDicionario e Qualquer número diferente dos anteriores para fechar o programa.");
-  for (i = 0; i < 33; i++)
+  for (i = 0; i < 120; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+  
+
+  for (i = 0; i < 43; i++)
+  {
+    fputs(" ", stdout);
+  }
+
+  printf(" (3) para Exibir a menor nota obtida  (4) para exibir a maior nota obtida");
+  for (i = 0; i < 47; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+
+  for (i = 0; i < 163; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+
+  for (i = 0; i < 53; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("(5) para Exibir o número de alunos com média na prova e ");
+  for (i = 0; i < 54; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+  for (i = 0; i < 163; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("|\n");
+
+  printf("|");
+  for (i = 0; i < 50; i++)
+  {
+    fputs(" ", stdout);
+  }
+  printf("Qualquer número diferente dos anteriores para fechar o programa.");
+  for (i = 0; i < 49; i++)
   {
     fputs(" ", stdout);
   }
