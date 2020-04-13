@@ -18,4 +18,4 @@
 
 ## Binary Search Tree
 
- <a href="https://whimsical.com/STXwRKEXfwCPgiRo1owpBq" target="_blank" alt="clique">![BST (1)](https://user-images.githubusercontent.com/45442173/79145264-bac10600-7d96-11ea-8202-9de506f1a096.png)</a>
+ <a href="https://whimsical.com/STXwRKEXfwCPgiRo1owpBq" target="_blank" alt="clique" title="clique">![BST (1)](https://user-images.githubusercontent.com/45442173/79145264-bac10600-7d96-11ea-8202-9de506f1a096.png)</a>
