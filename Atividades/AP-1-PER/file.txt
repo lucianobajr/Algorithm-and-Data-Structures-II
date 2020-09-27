@@ -1,0 +1,10 @@
+Ana - 1 - Grupo2 - 2
+Carol - 2 - Grupo1 - 5
+Gabriel - 3 - Grupo3 - 4
+Guilherme - 4 - Grupo2 - 6
+Luciano - 5 - Grupo3 - 7
+Jorge - 6 - Grupo2 - 9
+Laura - 7 - Grupo1 - 10
+Pamella - 8 - Grupo1 - 10
+Marcilene - 9 - Grupo2 - 3
+Maria - 10 - Grupo2 - 8
