@@ -195,16 +195,6 @@ void countMediaProva(int *media, TipoApontador p)
   }
 }
 
-void agroup()
-{
-  char nome1[6] = "Grupo1";
-  char nome2[6] = "Grupo2";
-  if (nome1[5] > nome2[5])
-    printf("1>>>>>>>\n");
-  else
-    printf("2>>>>>>>\n");
-}
-
 void inicializaGrupo(TipoApontadorGrupo *Dicionario)
 {
   *Dicionario = NULL; //raiz da árvore

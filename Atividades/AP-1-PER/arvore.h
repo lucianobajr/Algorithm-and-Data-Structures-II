@@ -68,5 +68,4 @@ int countStudent(TipoApontador p,int *count);
 int maiorNota(TipoApontador p); 
 int menorNota(TipoApontador p);
 void countMediaProva(int *media,TipoApontador p);
-void agroup();
 void ordemGrupo(TipoApontadorGrupo g);
