@@ -23,9 +23,18 @@ struct Queue
 struct Queue* front = NULL;
 struct Queue* rear = NULL;
 
-struct Node* pfront()
-{
-    struct Node* data ;
-    data = front->data;
-    return data;
-}
+int isempty();
+void dequeue();
+struct Node* pfront();
+void enqueue(struct Node* data);
+void levelorder(struct Node* root);
+void LeftRotate(struct Node** T,struct Node** x);
+void RightRotate(struct Node** T,struct Node** x);
+void RB_insert_fixup(struct Node** T, struct Node** z);
+struct Node* RB_insert(struct Node* T,int data);
+void preorder(struct Node* root);
+struct Node* Tree_minimum(struct Node* node);
+void RB_delete_fixup(struct Node** T, struct Node** x);
+void RB_transplat(struct Node** T, struct Node** u,struct Node** v);
+struct Node* RB_delete(struct Node *T,struct Node* z);
+struct Node* BST_search(struct Node* root, int x);

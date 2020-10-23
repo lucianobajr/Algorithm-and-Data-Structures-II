@@ -11,7 +11,6 @@ typedef struct TSTNode *TSTNodePointer;
 
 typedef struct TSTNode {
     data character;
-
     // Verdadeiro || 1 se este caractere for o último caractere de uma das palavras
     short isEndOfString : 1;
     TSTNodePointer left,eq,right;

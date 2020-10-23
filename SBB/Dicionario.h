@@ -50,3 +50,4 @@ void Arquivo(arquivo *arq);
 void menu(arquivo *arq, TipoApontador Dicionario);
 void print_menu();
 void central(TipoApontador p);
+int altura(TipoApontador p);

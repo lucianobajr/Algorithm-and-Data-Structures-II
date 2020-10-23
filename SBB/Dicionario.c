@@ -62,8 +62,7 @@ void IInsere(TipoRegistro x, TipoApontador *Ap,
     *Fim = FALSE;
     return;
   }
-  if (x.Chave < (*Ap)->Reg.Chave)
-  {
+  if (x.Chave < (*Ap)->Reg.Chave){
     IInsere(x, &(*Ap)->Esq, &(*Ap)->BitE, Fim);
     if (*Fim)
       return;
@@ -78,15 +77,13 @@ void IInsere(TipoRegistro x, TipoApontador *Ap,
       *IAp = Horizontal;
       return;
     }
-    if ((*Ap)->Esq->BitD == Horizontal)
-    {
+    if ((*Ap)->Esq->BitD == Horizontal){
       ED(Ap);
       *IAp = Horizontal;
     }
     return;
   }
-  if (x.Chave <= (*Ap)->Reg.Chave)
-  {
+  if (x.Chave <= (*Ap)->Reg.Chave){
     printf("Erro: Chave ja esta na arvore\n");
     *Fim = TRUE;
     return;
@@ -94,19 +91,16 @@ void IInsere(TipoRegistro x, TipoApontador *Ap,
   IInsere(x, &(*Ap)->Dir, &(*Ap)->BitD, Fim);
   if (*Fim)
     return;
-  if ((*Ap)->BitD != Horizontal)
-  {
+  if ((*Ap)->BitD == Vertical){
     *Fim = TRUE;
     return;
   }
-  if ((*Ap)->Dir->BitD == Horizontal)
-  {
+  if ((*Ap)->Dir->BitD == Horizontal){
     DD(Ap);
     *IAp = Horizontal;
     return;
   }
-  if ((*Ap)->Dir->BitE == Horizontal)
-  {
+  if ((*Ap)->Dir->BitE == Horizontal){
     DE(Ap);
     *IAp = Horizontal;
   }
@@ -376,6 +370,19 @@ void Permut(int *A, int n)
   }
 }
 
+int altura(TipoApontador p){
+    if(p == NULL){
+      return -1;
+    }
+    else{
+      int he = altura(p->Esq);
+      int hd = altura(p->Dir);
+      if(he < hd)
+        return hd+1;
+      else return he+1;  
+    }
+}
+
 void Arquivo(arquivo *arq)
 {
   FILE *teste;
@@ -436,6 +443,12 @@ void menu(arquivo *arq, TipoApontador Dicionario)
     if (resposta == 3)
     {
       central(Dicionario);
+      //central do TAD Dicionario
+    }
+    if (resposta == 4)
+    {
+      int height = altura(Dicionario);
+      printf("\n ALTURA = %d\n",height);
       //central do TAD Dicionario
     }
     if (resposta == 2)
@@ -501,8 +514,8 @@ void print_menu()
     fputs(" ", stdout);
   }
 
-  printf(" (3) para imprimir os itens do TipoDicionario e Qualquer número diferente dos anteriores para fechar o programa.");
-  for (i = 0; i < 33; i++)
+  printf(" (3) para imprimir os itens do TipoDicionario  (4) para Imprimir a Altura e Qualquer número diferente dos anteriores para fechar o programa.");
+  for (i = 0; i < 5; i++)
   {
     fputs(" ", stdout);
   }
